@@ -17,7 +17,7 @@
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-                            <input type="text" name="name" id="name" value="{{ old('name', $noticia->name) }}"
+                            <input type="text" name="name" id="name" value="{{ old('name', $noticia->name) }}" placeholder="Título da Noticia"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             @error('name')
                             <p class="text-red-500 text-xs mt-1">{{ 'O campo nome é obrigatório' }}</p>
@@ -27,7 +27,7 @@
                         <div class="mb-4">
                             <label for="description"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
-                            <textarea name="description" id="description" rows="3"
+                            <textarea name="description" id="description" rows="3" placeholder="Escreva o conteúdo da Noticia"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('description', $noticia->description) }}</textarea>
                             @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ 'O campo descrição é obrigatório' }}</p>
@@ -37,7 +37,7 @@
                         <div class="mb-4">
                             <label for="noticia_image"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem</label>
-                            <input type="file" name="noticia_image" id="noticia_image"
+                            <input type="file" name="noticia_image" id="noticia_image" 
                             class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                         </div>
 

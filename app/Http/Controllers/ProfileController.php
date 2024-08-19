@@ -38,13 +38,19 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id, // Este trecho já está correto
+            'email' => 'required|email|unique:users,email,' . $user->id,
             'document' => 'required|numeric|digits:11|unique:users,document,' . $user->id,
+            'password' => 'nullable|min:8|confirmed', // Validação da senha opcional
         ]);
     
         $user->name = $request->name;
         $user->email = $request->email;
         $user->document = $request->document;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+    
         $user->save();
     
         return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
