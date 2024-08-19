@@ -17,7 +17,6 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/noticias/gerenciar', [NoticiasController::class, 'index'])->name('noticias.index');
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
     Route::resource('/users' , ProfileController::class);
