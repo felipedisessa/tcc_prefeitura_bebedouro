@@ -16,7 +16,7 @@
                     
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                            <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Nome do Usuário"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             @error('name')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -26,7 +26,7 @@
                         <div class="mb-4">
                             <label for="email"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">E-mail</label>
-                            <input name="email" id="email" type="email"
+                            <input name="email" id="email" type="email" placeholder="exemplo@exemplo.com"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                                 value="{{ old('email') }}">
                             @error('email')
@@ -37,7 +37,7 @@
                         <div class="mb-4">
                             <label for="document"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Documento</label>
-                            <input name="document" id="document" type="text"
+                            <input name="document" id="document" type="text" placeholder="000.000.000-00"
                              class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                              value="{{ old('document') }}">
                             @error('document')
@@ -48,7 +48,7 @@
                         <div class="mb-4">
                             <label for="password"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
-                            <input name="password" id="password" type="password"
+                            <input name="password" id="password" type="password" placeholder="Minimo 8 Caracteres"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             @error('password')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -58,7 +58,7 @@
                         <div class="mb-4">
                             <label for="password_confirmation"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmação de Senha</label>
-                            <input name="password_confirmation" id="password_confirmation" type="password"
+                            <input name="password_confirmation" id="password_confirmation" type="password" placeholder="Confirme a Senha"
                                 class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             @error('password_confirmation')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

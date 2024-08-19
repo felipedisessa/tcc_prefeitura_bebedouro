@@ -65,7 +65,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email', // Usar 'users' tabela para usuários
+            'email' => 'required|email|unique:users,email', 
             'password' => 'required|confirmed',
             'document' => 'required|numeric|digits:11|unique:users,document',
         ]);
