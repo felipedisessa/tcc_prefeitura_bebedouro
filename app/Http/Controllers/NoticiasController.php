@@ -20,14 +20,14 @@ class NoticiasController extends Controller
             $noticia->image_url = $noticia->uploads->isNotEmpty() ? url('storage/' . $noticia->uploads->first()->file_path) : null;
             return $noticia;
         });
-    
+
         // Retorna as notícias como uma resposta JSON
         return response()->json($noticias)
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     }
-    
+
 
     public function create()
 {
@@ -45,6 +45,7 @@ public function store(Request $request)
 
     // Criação da notícia
     $noticia = Noticias::create([
+        'user_id' => auth()->user()->id,
         'name' => $request->name,
         'description' => $request->description,
     ]);
@@ -70,7 +71,7 @@ public function store(Request $request)
     public function edit($id)
     {
         $noticia = Noticias::with('uploads')->findOrFail($id);
-    return view('noticias.edit', compact('noticia'));
+        return view('noticias.edit', compact('noticia'));
     }
 
     public function update(Request $request, $id)

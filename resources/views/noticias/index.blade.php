@@ -24,9 +24,9 @@
                                     <th scope="col" class="px-6 py-3">
                                         {{ __('Título') }}
                                     </th>
-                                    {{-- <th scope="col" class="px-6 py-3">
-                                        {{ __('Descrição') }}
-                                    </th> --}}
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ __('Responsável') }}
+                                    </th>
                                     <th scope="col" class="px-6 py-3">
                                         {{ __('Data de Criação') }}
                                     </th>
@@ -41,9 +41,9 @@
                                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $noticia->name }}
                                         </td>
-                                        {{-- <td class="px-6 py-4 text-gray-700 dark:text-gray-300">
-                                            {{ $noticia->description }}
-                                        </td> --}}
+                                        <td class="px-6 py-4 text-gray-700 dark:text-gray-300">
+                                            {{ $noticia->user->name }}
+                                        </td>
                                         <td class="px-6 py-4 text-gray-500 text-sm">
                                             {{ \Carbon\Carbon::parse($noticia->created_at)->format('d/m/Y') }}
                                         </td>
@@ -58,7 +58,7 @@
                                                     Deletar
                                                 </button>
                                             </form>
-                                            
+
                                         </td>
                                     </tr>
                                 @endforeach
