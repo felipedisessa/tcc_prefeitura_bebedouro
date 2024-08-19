@@ -17,7 +17,9 @@ class NoticiasController extends Controller
     public function ApiIndex()
     {
         $noticias = Noticias::with('uploads')->get()->map(function ($noticia) {
-            $noticia->image_url = $noticia->uploads->isNotEmpty() ? url('storage/' . $noticia->uploads->first()->file_path) : null;
+            $noticia->image_url = $noticia->uploads->isNotEmpty() 
+            ? url('image/' . $noticia->uploads->first()->file_path) 
+            : null;
             return $noticia;
         });
 
