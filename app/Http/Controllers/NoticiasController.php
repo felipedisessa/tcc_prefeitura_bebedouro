@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Noticias;
 use App\Models\Upload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class NoticiasController extends Controller
 {
@@ -17,8 +18,8 @@ class NoticiasController extends Controller
     public function ApiIndex()
     {
         $noticias = Noticias::with('uploads')->get()->map(function ($noticia) {
-            $noticia->image_url = $noticia->uploads->isNotEmpty() 
-            ? url('image/' . $noticia->uploads->first()->file_path) 
+            $noticia->image_url = $noticia->uploads->isNotEmpty()
+            ? url('image/' . $noticia->uploads->first()->file_path)
             : null;
             return $noticia;
         });
@@ -78,22 +79,44 @@ public function store(Request $request)
 
     public function update(Request $request, $id)
     {
-        // Validação dos dados recebidos
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'noticia_image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Busca e atualiza a notícia existente
         $noticia = Noticias::findOrFail($id);
         $noticia->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
 
-        // Retorna a notícia atualizada como resposta JSON
-        return redirect()->route('noticias.index');
+        if ($request->has('delete_images')) {
+            foreach ($request->delete_images as $imageId) {
+                $upload = Upload::find($imageId);
+                if ($upload) {
+                    Storage::disk('public')->delete($upload->file_path);
+                    $upload->delete();
+                }
+            }
+        }
+
+        if ($request->hasFile('noticia_image')) {
+            foreach ($request->file('noticia_image') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $path = $image->storeAs('noticias', $imageName, 'public');
+
+                $upload = new Upload([
+                    'file_name' => $imageName,
+                    'file_path' => $path,
+                ]);
+                $noticia->uploads()->save($upload);
+            }
+        }
+
+        return redirect()->route('noticias.index')->with('success', 'Notícia atualizada com sucesso!');
     }
+
 
     public function destroy($id)
     {

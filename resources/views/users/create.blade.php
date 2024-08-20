@@ -8,12 +8,12 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white dark:bg-gray-800">
                     <form action="{{ route('users.store') }}" method="POST">
                         @csrf
-                    
+
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
                             <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Nome do Usuário"
@@ -22,7 +22,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                    
+
                         <div class="mb-4">
                             <label for="email"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">E-mail</label>
@@ -44,7 +44,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                    
+
                         <div class="mb-4">
                             <label for="password"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
@@ -54,7 +54,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                    
+
                         <div class="mb-4">
                             <label for="password_confirmation"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmação de Senha</label>
@@ -64,14 +64,14 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                             </div>
-                    
+
                         <div>
                             <button type="submit"
                                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600
                                 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Criar Usuário</button>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
