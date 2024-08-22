@@ -1,5 +1,3 @@
-<!-- resources/views/noticias/edit.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -11,32 +9,29 @@
         <div class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white dark:bg-gray-800">
-                    <form action="{{ route('noticias.update', $noticia->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('noticias.update', $noticia->id) }}" method="POST" enctype="multipart/form-data" id="editNoticiaForm">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Título</label>
-                            <input type="text" name="name" id="name" value="{{ old('name', $noticia->name) }}" placeholder="Título da Noticia"
+                            <input type="text" name="name" id="name" value="{{ old('name', $noticia->name) }}" placeholder="Título da Notícia"
                                    class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                            @error('name')
-                            <p class="text-red-500 text-xs mt-1">{{ 'O campo nome é obrigatório' }}</p>
-                            @enderror
+                            <div id="nameError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
-                            <textarea name="description" id="description" rows="3" placeholder="Escreva o conteúdo da Noticia"
+                            <textarea name="description" id="description" rows="3" placeholder="Escreva o conteúdo da Notícia"
                                       class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('description', $noticia->description) }}</textarea>
-                            @error('description')
-                            <p class="text-red-500 text-xs mt-1">{{ 'O campo descrição é obrigatório' }}</p>
-                            @enderror
+                            <div id="descriptionError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
                         <div class="mb-4">
                             <label for="noticia_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagens</label>
                             <input type="file" name="noticia_image[]" id="noticia_image" multiple
                                    class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <div id="imageError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
                         @if($noticia->uploads->isNotEmpty())
@@ -47,7 +42,6 @@
                                         <div>
                                             <img src="{{ asset('storage/' . $upload->file_path) }}" alt="{{ $noticia->name }}" class="w-full h-40 object-cover mb-2">
 
-                                            <!-- Checkbox estilizado -->
                                             <div class="flex items-center mb-4">
                                                 <input id="delete-image-{{ $upload->id }}" type="checkbox" name="delete_images[]" value="{{ $upload->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                 <label for="delete-image-{{ $upload->id }}" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Excluir</label>
@@ -68,3 +62,5 @@
         </div>
     </div>
 </x-app-layout>
+
+@vite('resources/js/news.js')
