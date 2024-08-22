@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (name === '') {
             nameError.textContent = 'O nome é obrigatório.';
             return false;
+        } else if (name.length < 3) {
+            nameError.textContent = 'O nome deve conter pelo menos 3 dígitos.';
+            return false;
         } else {
             nameError.textContent = '';
             return true;

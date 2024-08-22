@@ -21,18 +21,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateName() {
         const name = nameInput.value.trim();
         if (name === '') {
-            nameError.textContent = 'O título é obrigatório.';
+            nameError.textContent = 'O nome é obrigatório.';
+            return false;
+        } else if (name.length < 3) {
+            nameError.textContent = 'O nome deve conter pelo menos 3 dígitos.';
             return false;
         } else {
             nameError.textContent = '';
             return true;
         }
     }
-
     function validateDescription() {
         const description = descriptionInput.value.trim();
         if (description === '') {
             descriptionError.textContent = 'A descrição é obrigatória.';
+            return false;
+        } else if (description.length < 8) {
+            descriptionError.textContent = 'A descrição deve conter pelo menos 8 dígitos.';
             return false;
         } else {
             descriptionError.textContent = '';
