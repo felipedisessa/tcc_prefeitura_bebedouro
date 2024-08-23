@@ -42,7 +42,7 @@ class ProfileController extends Controller
             'document' => 'required|numeric|digits:11|unique:users,document,' . $user->id,
             'password' => 'nullable|min:8|confirmed', // Validação da senha opcional
         ]);
-    
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->document = $request->document;
@@ -50,16 +50,31 @@ class ProfileController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-    
+
         $user->save();
-    
+
         return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
-    
-    public function index(): View
+
+    public function index(Request $request): View
     {
-        $users = User::all(); // Obtém todos os usuários do banco de dados
-        return view('users.index', compact('users'));
+        if ($request->has('trashed')) {
+            $users = User::onlyTrashed()->get();
+            $showTrashed = true;
+        } else {
+            $users = User::whereNull('deleted_at')->get();
+            $showTrashed = false;
+        }
+
+        return view('users.index', compact('users', 'showTrashed'));
+    }
+
+    public function restore($id): RedirectResponse
+    {
+        // Restaura o usuário deletado
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+        return redirect()->route('users.index')->with('success', 'Usuário reativado com sucesso!');
     }
 
     public function create(): View
@@ -71,7 +86,7 @@ class ProfileController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email', 
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'document' => 'required|numeric|digits:11|unique:users,document',
         ]);
@@ -102,16 +117,16 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
-   
+
     public function destroyUser($id): RedirectResponse
     {
         // Verifica se o usuário autenticado está tentando excluir a própria conta
         if (Auth::id() == $id) {
             return redirect()->route('users.index')->with('error', 'Você não pode excluir sua própria conta!');
         }
-    
-        $user = User::findOrFail($id); 
-        $user->delete(); 
+
+        $user = User::findOrFail($id);
+        $user->delete();
         return redirect()->route('users.index')->with('success', 'Usuário deletado com sucesso!');
-    } 
+    }
 }

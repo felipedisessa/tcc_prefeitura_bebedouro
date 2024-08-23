@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/noticias' , NoticiasController::class);
     Route::delete('/users/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');
+    Route::post('/users/restore/{id}', [ProfileController::class, 'restore'])->name('users.restore');
 
 });
 
