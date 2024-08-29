@@ -19,8 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/noticias/gerenciar', [NoticiasController::class, 'index'])->name('noticias.index');
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
-    Route::resource('/users' , ProfileController::class);
     Route::patch('/users/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
+    Route::resource('/users' , ProfileController::class);
+
 
     Route::resource('/noticias' , NoticiasController::class);
     Route::delete('/users/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');

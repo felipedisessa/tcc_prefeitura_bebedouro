@@ -39,27 +39,23 @@ class NoticiasController extends Controller
 
 public function store(Request $request)
 {
-    // Validação dos campos
      $request->validate([
          'name' => 'required|string|max:255',
          'description' => 'required|string',
          'noticia_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // ajuste a validação conforme necessário
      ]);
 
-    // Criação da notícia
     $noticia = Noticias::create([
         'user_id' => auth()->user()->id,
         'name' => $request->name,
         'description' => $request->description,
     ]);
 
-    // Verificar se uma imagem foi enviada
     if ($request->hasFile('noticia_image')) {
         $image = $request->file('noticia_image');
         $imageName = time() . '_' . $image->getClientOriginalName();
         $path = $image->storeAs('noticias', $imageName, 'public'); // Salva a imagem no diretório 'storage/app/public/noticias'
 
-        // Salva a relação polimórfica com a notícia
         $upload = new Upload([
             'file_name' => $imageName,
             'file_path' => $path,
@@ -84,14 +80,13 @@ public function store(Request $request)
             'description' => 'required|string',
             'noticia_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Removendo o wildcard para múltiplos arquivos
         ]);
-    
+
         $noticia = Noticias::findOrFail($id);
         $noticia->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-    
-        // Se o usuário deseja excluir imagens existentes
+
         if ($request->has('delete_images')) {
             foreach ($request->delete_images as $imageId) {
                 $upload = Upload::find($imageId);
@@ -101,32 +96,30 @@ public function store(Request $request)
                 }
             }
         }
-    
-        // Se houver uma nova imagem, substitua a existente
+
         if ($request->hasFile('noticia_image')) {
-            // Excluir a imagem atual, se houver
+
             $existingUpload = $noticia->uploads()->first(); // Pega a primeira imagem associada
-    
+
             if ($existingUpload) {
                 Storage::disk('public')->delete($existingUpload->file_path);
                 $existingUpload->delete();
             }
-    
-            // Adiciona a nova imagem
+
             $image = $request->file('noticia_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $path = $image->storeAs('noticias', $imageName, 'public');
-    
+
             $upload = new Upload([
                 'file_name' => $imageName,
                 'file_path' => $path,
             ]);
             $noticia->uploads()->save($upload);
         }
-    
-        return redirect()->route('noticias.index')->with('success', 'Notícia atualizada com sucesso!');
+
+        return back();
     }
-    
+
 
 
     public function destroy($id)
