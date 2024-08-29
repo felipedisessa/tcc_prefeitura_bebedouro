@@ -82,15 +82,16 @@ public function store(Request $request)
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'noticia_image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'noticia_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Removendo o wildcard para múltiplos arquivos
         ]);
-
+    
         $noticia = Noticias::findOrFail($id);
         $noticia->update([
             'name' => $request->name,
             'description' => $request->description,
         ]);
-
+    
+        // Se o usuário deseja excluir imagens existentes
         if ($request->has('delete_images')) {
             foreach ($request->delete_images as $imageId) {
                 $upload = Upload::find($imageId);
@@ -100,22 +101,32 @@ public function store(Request $request)
                 }
             }
         }
-
+    
+        // Se houver uma nova imagem, substitua a existente
         if ($request->hasFile('noticia_image')) {
-            foreach ($request->file('noticia_image') as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
-                $path = $image->storeAs('noticias', $imageName, 'public');
-
-                $upload = new Upload([
-                    'file_name' => $imageName,
-                    'file_path' => $path,
-                ]);
-                $noticia->uploads()->save($upload);
+            // Excluir a imagem atual, se houver
+            $existingUpload = $noticia->uploads()->first(); // Pega a primeira imagem associada
+    
+            if ($existingUpload) {
+                Storage::disk('public')->delete($existingUpload->file_path);
+                $existingUpload->delete();
             }
+    
+            // Adiciona a nova imagem
+            $image = $request->file('noticia_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $path = $image->storeAs('noticias', $imageName, 'public');
+    
+            $upload = new Upload([
+                'file_name' => $imageName,
+                'file_path' => $path,
+            ]);
+            $noticia->uploads()->save($upload);
         }
-
+    
         return redirect()->route('noticias.index')->with('success', 'Notícia atualizada com sucesso!');
     }
+    
 
 
     public function destroy($id)

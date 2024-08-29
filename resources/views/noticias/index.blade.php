@@ -42,7 +42,7 @@
                                         {{ $noticia->name }}
                                     </td>
                                     <td class="px-6 py-4 text-gray-700 dark:text-gray-300">
-                                        {{ $noticia->user->name }}
+                                        {{ $noticia->user->name ?? 'Usuário desativado' }}
                                     </td>
                                     <td class="px-6 py-4 text-gray-500 text-sm">
                                         {{ \Carbon\Carbon::parse($noticia->created_at)->format('d/m/Y') }}

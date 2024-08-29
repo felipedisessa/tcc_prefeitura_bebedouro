@@ -28,15 +28,15 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="noticia_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagens</label>
-                            <input type="file" name="noticia_image[]" id="noticia_image" multiple
+                            <label for="noticia_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem</label>
+                            <input type="file" name="noticia_image" id="noticia_image"
                                    class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             <div id="imageError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
                         @if($noticia->uploads->isNotEmpty())
                             <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagens Atuais</label>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem Atual</label>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     @foreach($noticia->uploads as $upload)
                                         <div>
