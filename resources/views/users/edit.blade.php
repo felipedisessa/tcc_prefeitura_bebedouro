@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white dark:bg-gray-800">
                     <form action="{{ route('users.updateUser', $user->id) }}" method="POST">
                         @csrf
-                        @method('PATCH')
+                        @method('PUT')
 
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>

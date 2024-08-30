@@ -19,9 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/noticias/gerenciar', [NoticiasController::class, 'index'])->name('noticias.index');
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
-    Route::patch('/users/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
+Route::put('/users/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
     Route::resource('/users' , ProfileController::class);
-
 
     Route::resource('/noticias' , NoticiasController::class);
     Route::delete('/users/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');
@@ -42,7 +41,7 @@ Route::get('/image/{path}', function ($path) {
 
     $response = response($file, 200)->header("Content-Type", $type);
     $response->header('Access-Control-Allow-Origin', '*');
-    $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    $response->header('Access-Control-Allow-Methods', 'GET');
     $response->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
     return $response;
