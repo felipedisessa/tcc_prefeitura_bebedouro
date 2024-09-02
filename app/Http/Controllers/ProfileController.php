@@ -40,7 +40,7 @@ class ProfileController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'document' => 'required|numeric|digits:11|unique:users,document,' . $user->id,
-            'password' => 'nullable|min:8|confirmed', // Validação da senha opcional
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
         $user->name = $request->name;
