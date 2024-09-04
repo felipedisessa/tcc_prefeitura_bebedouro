@@ -17,16 +17,17 @@
                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Criar Usuário
                             </a>
-                            @if (!$showTrashed)
-                                <a href="{{ route('users.index', ['trashed' => true]) }}"
-                                   class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
-                                    Ver Usuários Desativados
-                                </a>
-                            @else
-                                <a href="{{ route('users.index') }}"
-                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    Voltar
-                                </a>
+
+                            @if (!$showTrashed && $trashedCount > 0)
+                            <a href="{{ route('users.index', ['trashed' => true]) }}"
+                               class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                Ver Usuários Desativados
+                            </a>
+                            @elseif ($showTrashed)
+                            <a href="{{ route('users.index') }}"
+                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Voltar
+                            </a>
                             @endif
                         </div>
                     </div>
@@ -44,25 +45,24 @@
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    {{ __('Nome') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    {{ __('Email') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    {{ $showTrashed ? __('Data de Desativação') : __('Data de Criação') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    {{ __('Ação') }}
-                                </th>
-                            </tr>
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ __('Nome') }}
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ __('Email') }}
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ $showTrashed ? __('Data de Desativação') : __('Data de Criação') }}
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        {{ __('Ação') }}
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                                @foreach($users as $user)
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->name }}
@@ -76,8 +76,7 @@
                                     <td class="px-6 py-4">
                                         <div class="flex flex-wrap gap-2">
                                             @if ($showTrashed)
-                                                <form action="{{ route('users.restore', $user->id) }}" method="POST"
-                                                      class="inline">
+                                                <form action="{{ route('users.restore', $user->id) }}" method="POST" class="inline">
                                                     @csrf
                                                     <button type="submit"
                                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -89,15 +88,17 @@
                                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                                     Editar
                                                 </a>
-                                                <button data-modal-target="popup-modal-{{ $user->id }}" data-modal-toggle="popup-modal-{{ $user->id }}"
+                                                @if (Auth::user()->id !== $user->id)
+                                                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
                                                         class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                                     Deletar
                                                 </button>
+                                                @endif
                                             @endif
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

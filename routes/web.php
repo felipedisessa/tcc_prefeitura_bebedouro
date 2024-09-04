@@ -9,11 +9,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -21,7 +16,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
     Route::patch('/users/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
     Route::resource('/users' , ProfileController::class);
-
     Route::resource('/noticias' , NoticiasController::class);
     Route::delete('/users/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');
     Route::post('/users/restore/{id}', [ProfileController::class, 'restore'])->name('users.restore');

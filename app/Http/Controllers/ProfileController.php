@@ -65,10 +65,13 @@ class ProfileController extends Controller
             $users = User::whereNull('deleted_at')->get();
             $showTrashed = false;
         }
-
-        return view('users.index', compact('users', 'showTrashed'));
+    
+        // Verifica se há usuários desativados
+        $trashedCount = User::onlyTrashed()->count();
+    
+        return view('users.index', compact('users', 'showTrashed', 'trashedCount'));
     }
-
+    
     public function restore($id): RedirectResponse
     {
         // Restaura o usuário deletado
