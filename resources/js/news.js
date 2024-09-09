@@ -1,73 +1,107 @@
+import { Modal } from 'flowbite';
+
 document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('#editNoticiaForm');
-    const nameInput = document.querySelector('#name');
-    const descriptionInput = document.querySelector('#description');
-    const imageInput = document.querySelector('#noticia_image');
+    const targetEl = document.getElementById('popup-modal');
 
-    const nameError = document.querySelector('#nameError');
-    const descriptionError = document.querySelector('#descriptionError');
-    const imageError = document.querySelector('#imageError');
+    // Verifica se o elemento do modal existe
+    if (targetEl) {
+        const modal = new Modal(targetEl);
 
-    nameInput.addEventListener('input', validateName);
-    descriptionInput.addEventListener('input', validateDescription);
-    imageInput.addEventListener('change', validateImage);
+        // Adiciona eventos aos botões para abrir e fechar o modal
+        const openButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
+        openButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                modal.show();
+            });
+        });
 
-    form.addEventListener('submit', function (event) {
-        if (!validateForm()) {
-            event.preventDefault();
+        const closeButtons = document.querySelectorAll('[data-modal-hide="popup-modal"]');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                modal.hide();
+            });
+        });
+    } 
+
+    // Validação do formulário
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        const nameInput = form.querySelector('#name');
+        const descriptionInput = form.querySelector('#description');
+        const imageInput = form.querySelector('#noticia_image');
+
+        const nameError = form.querySelector('#nameError');
+        const descriptionError = form.querySelector('#descriptionError');
+        const imageError = form.querySelector('#imageError');
+
+        if (nameInput) {
+            nameInput.addEventListener('input', validateName);
         }
-    });
-
-    function validateName() {
-        const name = nameInput.value.trim();
-        if (name === '') {
-            nameError.textContent = 'O nome é obrigatório.';
-            return false;
-        } else if (name.length < 3) {
-            nameError.textContent = 'O nome deve conter pelo menos 3 dígitos.';
-            return false;
-        } else {
-            nameError.textContent = '';
-            return true;
+        if (descriptionInput) {
+            descriptionInput.addEventListener('input', validateDescription);
         }
-    }
-    function validateDescription() {
-        const description = descriptionInput.value.trim();
-        if (description === '') {
-            descriptionError.textContent = 'A descrição é obrigatória.';
-            return false;
-        } else if (description.length < 8) {
-            descriptionError.textContent = 'A descrição deve conter pelo menos 8 dígitos.';
-            return false;
-        } else {
-            descriptionError.textContent = '';
-            return true;
+        if (imageInput) {
+            imageInput.addEventListener('change', validateImage);
         }
-    }
 
-    function validateImage() {
-        const files = imageInput.files;
-        let isValid = true;
-        imageError.textContent = '';
+        form.addEventListener('submit', function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
 
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-                imageError.textContent = 'As imagens devem ser do tipo: jpeg, png, jpg, gif.';
-                isValid = false;
-            } else if (file.size > 2048 * 1024) { // 2MB
-                imageError.textContent = 'Cada imagem deve ter no máximo 2MB.';
-                isValid = false;
+        function validateName() {
+            const name = nameInput.value.trim();
+            if (name === '') {
+                nameError.textContent = 'O nome é obrigatório.';
+                return false;
+            } else if (name.length < 3) {
+                nameError.textContent = 'O nome deve conter pelo menos 3 caracteres.';
+                return false;
+            } else {
+                nameError.textContent = '';
+                return true;
             }
         }
-        return isValid;
-    }
 
-    function validateForm() {
-        const isNameValid = validateName();
-        const isDescriptionValid = validateDescription();
-        const isImageValid = validateImage();
+        function validateDescription() {
+            const description = descriptionInput.value.trim();
+            if (description === '') {
+                descriptionError.textContent = 'A descrição é obrigatória.';
+                return false;
+            } else if (description.length < 8) {
+                descriptionError.textContent = 'A descrição deve conter pelo menos 8 caracteres.';
+                return false;
+            } else {
+                descriptionError.textContent = '';
+                return true;
+            }
+        }
 
-        return isNameValid && isDescriptionValid && isImageValid;
-    }
+        function validateImage() {
+            const files = imageInput.files;
+            let isValid = true;
+            imageError.textContent = '';
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (!file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                    imageError.textContent = 'As imagens devem ser do tipo: jpeg, png, jpg, gif.';
+                    isValid = false;
+                } else if (file.size > 2048 * 1024) { // 2MB
+                    imageError.textContent = 'Cada imagem deve ter no máximo 2MB.';
+                    isValid = false;
+                }
+            }
+            return isValid;
+        }
+
+        function validateForm() {
+            const isNameValid = validateName();
+            const isDescriptionValid = validateDescription();
+            const isImageValid = validateImage();
+
+            return isNameValid && isDescriptionValid && isImageValid;
+        }
+    });
 });

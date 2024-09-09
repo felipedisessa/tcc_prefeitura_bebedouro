@@ -1,25 +1,28 @@
 import { Modal } from 'flowbite';
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Inicialize o modal
     const targetEl = document.getElementById('popup-modal');
-    const modal = new Modal(targetEl);
 
-    // Adiciona eventos aos botões para abrir o modal
-    const openButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
-    openButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            modal.show();
-        });
-    });
+    // Verifica se o elemento do modal existe
+    if (targetEl) {
+        const modal = new Modal(targetEl);
 
-    // Adiciona eventos aos botões para fechar o modal
-    const closeButtons = document.querySelectorAll('[data-modal-hide="popup-modal"]');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            modal.hide();
+        // Adiciona eventos aos botões para abrir o modal
+        const openButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
+        openButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                modal.show();
+            });
         });
-    });
+
+        // Adiciona eventos aos botões para fechar o modal
+        const closeButtons = document.querySelectorAll('[data-modal-hide="popup-modal"]');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                modal.hide();
+            });
+        });
+    } 
 
     // Validação do formulário
     const form = document.querySelector('form');
