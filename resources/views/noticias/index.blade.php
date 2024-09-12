@@ -17,8 +17,8 @@
                             {{ __('Aqui você pode gerenciar todas as notícias do sistema. Use os botões abaixo para criar, editar ou excluir notícias. Aproveite as funcionalidades e mantenha as informações sempre atualizadas.') }}
                         </p>
                     </div>
-                    
-        
+
+
                     <div class="flex justify-between items-center mb-6">
                         <a href="{{ route('noticias.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                             Criar Notícia
@@ -59,11 +59,11 @@
                                         <div class="flex flex-wrap gap-2">
                                             <a href="{{ route('noticias.edit', $noticia->id) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                                 Editar
-                                            </a>                                   
+                                            </a>
                                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
                                                 class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                             Deletar
-                                            </button>                                           
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -77,5 +77,7 @@
     </div>
 </x-app-layout>
 
+@if(isset($noticia))
 @include('noticias.modal.destroy')
+@endif
 @vite('resources/js/news.js')

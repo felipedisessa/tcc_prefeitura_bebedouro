@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.hide();
             });
         });
-    } 
+    }
 
     // Validação do formulário
     const forms = document.querySelectorAll('form');
@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const imageError = form.querySelector('#imageError');
 
         if (nameInput) {
-            nameInput.addEventListener('input', validateName);
+            nameInput.addEventListener('blur', validateName);
         }
         if (descriptionInput) {
-            descriptionInput.addEventListener('input', validateDescription);
+            descriptionInput.addEventListener('blur', validateDescription);
         }
         if (imageInput) {
             imageInput.addEventListener('change', validateImage);

@@ -29,7 +29,7 @@
 
                         <div class="mb-4">
                             <label for="noticia_image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Imagem</label>
-                            <input type="file" name="noticia_image" id="noticia_image"
+                            <input accept="image/*" type="file" name="noticia_image" id="noticia_image"
                                    class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                             <div id="imageError" class="text-red-500 text-xs mt-1"></div>
                         </div>

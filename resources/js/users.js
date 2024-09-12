@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.hide();
             });
         });
-    } 
+    }
 
     // Validação do formulário
     const form = document.querySelector('form');
@@ -40,19 +40,19 @@ document.addEventListener('DOMContentLoaded', function () {
         const passwordConfirmationError = document.querySelector('#passwordConfirmationError');
 
         if (nameInput) {
-            nameInput.addEventListener('input', validateName);
+            nameInput.addEventListener('blur', validateName);
         }
         if (emailInput) {
-            emailInput.addEventListener('input', validateEmail);
+            emailInput.addEventListener('blur', validateEmail);
         }
         if (documentInput) {
-            documentInput.addEventListener('input', validateDocument);
+            documentInput.addEventListener('blur', validateDocument);
         }
         if (passwordInput) {
-            passwordInput.addEventListener('input', validatePassword);
+            passwordInput.addEventListener('blur', validatePassword);
         }
         if (passwordConfirmationInput) {
-            passwordConfirmationInput.addEventListener('input', validatePasswordConfirmation);
+            passwordConfirmationInput.addEventListener('blur', validatePasswordConfirmation);
         }
 
         form.addEventListener('submit', function (event) {

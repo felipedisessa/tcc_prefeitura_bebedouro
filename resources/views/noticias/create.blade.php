@@ -27,8 +27,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="noticia_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Escolher Imagem</label>
-                            <input id="noticia_image" name="noticia_image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file">
+                            <label  for="noticia_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Escolher Imagem</label>
+                            <input accept="image/*" id="noticia_image" name="noticia_image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file">
                             <div id="imageError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
