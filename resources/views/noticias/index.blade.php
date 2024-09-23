@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -20,14 +21,16 @@
 
 
                     <div class="flex justify-between items-center mb-6">
-                        <a href="{{ route('noticias.create') }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <a href="{{ route('noticias.create') }}"
+                           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                             Criar Notícia
                         </a>
                     </div>
 
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     {{ __('Título') }}
@@ -53,16 +56,18 @@
                                         {{ $noticia->user->name ?? 'Usuário desativado' }}
                                     </td>
                                     <td class="px-6 py-4 text-gray-500 text-sm">
-                                        {{ \Carbon\Carbon::parse($noticia->created_at)->format('d/m/Y') }}
+                                        {{ Carbon::parse($noticia->created_at)->format('d/m/Y') }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex flex-wrap gap-2">
-                                            <a href="{{ route('noticias.edit', $noticia->id) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                            <a href="{{ route('noticias.edit', $noticia->id) }}"
+                                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                                 Editar
                                             </a>
-                                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
-                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                            Deletar
+                                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                                                    data-id="{{ $noticia->id }}" type="button"
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                Deletar
                                             </button>
                                         </div>
                                     </td>
@@ -78,6 +83,6 @@
 </x-app-layout>
 
 @if(isset($noticia))
-@include('noticias.modal.destroy')
+    @include('noticias.modal.destroy')
 @endif
 @vite('resources/js/news.js')

@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const openButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
         openButtons.forEach(button => {
             button.addEventListener('click', function () {
+                const noticiaId = this.getAttribute('data-id');
+
+                // Atualiza o action do formulário com o ID correto
+                const deleteForm = document.getElementById('delete-noticia-form');
+                const formAction = deleteForm.getAttribute('action').replace(':id', noticiaId);
+                deleteForm.setAttribute('action', formAction);
+
                 modal.show();
             });
         });
