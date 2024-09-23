@@ -31,20 +31,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Validação do formulário
-    const form = document.querySelector('form');
-    if (form) {
-        const nameInput = document.querySelector('#name');
-        const emailInput = document.querySelector('#email');
-        const documentInput = document.querySelector('#document');
-        const passwordInput = document.querySelector('#password');
-        const passwordConfirmationInput = document.querySelector('#password_confirmation');
+    const forms = document.querySelectorAll('form'); // Mudando para querySelectorAll para lidar com todos os forms
+    forms.forEach(form => {
+        const nameInput = form.querySelector('#name');
+        const emailInput = form.querySelector('#email');
+        const documentInput = form.querySelector('#document');
+        const passwordInput = form.querySelector('#password');
+        const passwordConfirmationInput = form.querySelector('#password_confirmation');
 
-        const nameError = document.querySelector('#nameError');
-        const emailError = document.querySelector('#emailError');
-        const documentError = document.querySelector('#documentError');
-        const passwordError = document.querySelector('#passwordError');
-        const passwordConfirmationError = document.querySelector('#passwordConfirmationError');
+        const nameError = form.querySelector('#nameError');
+        const emailError = form.querySelector('#emailError');
+        const documentError = form.querySelector('#documentError');
+        const passwordError = form.querySelector('#passwordError');
+        const passwordConfirmationError = form.querySelector('#passwordConfirmationError');
 
         if (nameInput) {
             nameInput.addEventListener('blur', validateName);
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             emailInput.addEventListener('blur', validateEmail);
         }
         if (documentInput) {
-            documentInput.addEventListener('blur', validateDocument);
+            documentInput.addEventListener('input', validateDocument);
         }
         if (passwordInput) {
             passwordInput.addEventListener('blur', validatePassword);
@@ -63,8 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         form.addEventListener('submit', function (event) {
-            if (!validateForm()) {
-                event.preventDefault();
+            const isValid = validateForm();
+
+            if (!isValid) {
+                event.preventDefault(); // Impede o envio do formulário se houver erros
+                showErrors(); // Exibe os erros imediatamente
             }
         });
 
@@ -72,12 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const name = nameInput.value.trim();
             if (name === '') {
                 nameError.textContent = 'O nome é obrigatório.';
+                nameError.style.display = 'block';
                 return false;
             } else if (name.length < 3) {
                 nameError.textContent = 'O nome deve conter pelo menos 3 dígitos.';
+                nameError.style.display = 'block';
                 return false;
             } else {
                 nameError.textContent = '';
+                nameError.style.display = 'none';
                 return true;
             }
         }
@@ -87,12 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (email === '') {
                 emailError.textContent = 'O e-mail é obrigatório.';
+                emailError.style.display = 'block';
                 return false;
             } else if (!emailPattern.test(email)) {
                 emailError.textContent = 'O e-mail não é válido.';
+                emailError.style.display = 'block';
                 return false;
             } else {
                 emailError.textContent = '';
+                emailError.style.display = 'none';
                 return true;
             }
         }
@@ -102,12 +110,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const document = documentInput.value.trim();
             if (document === '') {
                 documentError.textContent = 'O documento é obrigatório.';
+                documentError.style.display = 'block';
                 return false;
             } else if (document.length !== 11) {
                 documentError.textContent = 'O documento deve conter 11 dígitos.';
+                documentError.style.display = 'block';
                 return false;
             } else {
                 documentError.textContent = '';
+                documentError.style.display = 'none';
                 return true;
             }
         }
@@ -116,12 +127,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const password = passwordInput.value.trim();
             if (password === '') {
                 passwordError.textContent = 'A senha é obrigatória.';
+                passwordError.style.display = 'block';
                 return false;
             } else if (password.length < 8) {
                 passwordError.textContent = 'A senha deve ter no mínimo 8 caracteres.';
+                passwordError.style.display = 'block';
                 return false;
             } else {
                 passwordError.textContent = '';
+                passwordError.style.display = 'none';
                 return true;
             }
         }
@@ -131,9 +145,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const passwordConfirmation = passwordConfirmationInput.value.trim();
             if (passwordConfirmation !== password) {
                 passwordConfirmationError.textContent = 'As senhas não coincidem.';
+                passwordConfirmationError.style.display = 'block';
                 return false;
             } else {
                 passwordConfirmationError.textContent = '';
+                passwordConfirmationError.style.display = 'none';
                 return true;
             }
         }
@@ -147,5 +163,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
             return isNameValid && isEmailValid && isDocumentValid && isPasswordValid && isPasswordConfirmationValid;
         }
-    }
+
+        function showErrors() {
+            validateName();
+            validateEmail();
+            validateDocument();
+            validatePassword();
+            validatePasswordConfirmation();
+        }
+    });
 });
