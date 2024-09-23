@@ -101,7 +101,7 @@ class ProfileController extends Controller
         $user->document = $request->document; // Salvando o documento
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso!');
     }
 
     /**

@@ -27,6 +27,17 @@
                         </a>
                     </div>
 
+                    @if (session('success'))
+                        <div class="bg-blue-500 text-white p-4 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="bg-red-500 text-white p-4 rounded">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead
