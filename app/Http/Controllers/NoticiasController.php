@@ -117,7 +117,7 @@ public function store(Request $request)
             $noticia->uploads()->save($upload);
         }
 
-        return back();
+        return redirect()->route('noticias.index')->with('success', 'Notícia atualizada com sucesso!');
     }
 
 

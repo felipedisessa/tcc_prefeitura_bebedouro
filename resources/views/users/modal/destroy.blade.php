@@ -13,7 +13,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Tem certeza que deseja deletar este usuário?</h3>
-                <form id="delete-user-form" action="{{ route('users.destroyUser', $user->id) }}" method="POST" class="inline">
+                <form id="delete-user-form" action="{{ route('users.destroyUser', ':id') }}" method="POST" class="inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" data-modal-hide="popup-modal"

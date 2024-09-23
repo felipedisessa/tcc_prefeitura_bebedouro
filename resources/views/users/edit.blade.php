@@ -36,19 +36,19 @@
                             <div id="documentError" class="text-red-500 text-xs mt-1"></div>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
-                            <input name="password" id="password" type="password" placeholder="Minimo 8 Caracteres"
-                                   class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                            <div id="passwordError" class="text-red-500 text-xs mt-1"></div>
-                        </div>
+{{--                        <div class="mb-4">--}}
+{{--                            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>--}}
+{{--                            <input name="password" id="password" type="password" placeholder="Minimo 8 Caracteres"--}}
+{{--                                   class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">--}}
+{{--                            <div id="passwordError" class="text-red-500 text-xs mt-1"></div>--}}
+{{--                        </div>--}}
 
-                        <div class="mb-4">
-                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmação de Senha</label>
-                            <input name="password_confirmation" id="password_confirmation" type="password" placeholder="Confirme a Senha"
-                                   class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                            <div id="passwordConfirmationError" class="text-red-500 text-xs mt-1"></div>
-                        </div>
+{{--                        <div class="mb-4">--}}
+{{--                            <label for="password_confirmation" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmação de Senha</label>--}}
+{{--                            <input name="password_confirmation" id="password_confirmation" type="password" placeholder="Confirme a Senha"--}}
+{{--                                   class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">--}}
+{{--                            <div id="passwordConfirmationError" class="text-red-500 text-xs mt-1"></div>--}}
+{{--                        </div>--}}
 
                         <div>
                             <button type="submit"

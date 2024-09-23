@@ -65,13 +65,13 @@ class ProfileController extends Controller
             $users = User::whereNull('deleted_at')->get();
             $showTrashed = false;
         }
-    
+
         // Verifica se há usuários desativados
         $trashedCount = User::onlyTrashed()->count();
-    
+
         return view('users.index', compact('users', 'showTrashed', 'trashedCount'));
     }
-    
+
     public function restore($id): RedirectResponse
     {
         // Restaura o usuário deletado
@@ -88,7 +88,7 @@ class ProfileController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'document' => 'required|numeric|digits:11|unique:users,document',
@@ -101,7 +101,7 @@ class ProfileController extends Controller
         $user->document = $request->document; // Salvando o documento
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso!');
     }
 
     /**

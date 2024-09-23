@@ -55,7 +55,6 @@
                                 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Criar Usuário</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

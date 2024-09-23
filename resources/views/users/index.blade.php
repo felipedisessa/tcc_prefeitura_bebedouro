@@ -20,7 +20,7 @@
 
                             @if (!$showTrashed && $trashedCount > 0)
                             <a href="{{ route('users.index', ['trashed' => true]) }}"
-                               class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                               class="max-sm:flex max-sm:mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
                                 Ver Usuários Desativados
                             </a>
                             @elseif ($showTrashed)
@@ -89,10 +89,12 @@
                                                     Editar
                                                 </a>
                                                 @if (Auth::user()->id !== $user->id)
-                                                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button"
-                                                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                                    Deletar
-                                                </button>
+                                                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                                                            data-id="{{ $user->id }}" type="button"
+                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                        Deletar
+                                                    </button>
+
                                                 @endif
                                             @endif
                                         </div>
