@@ -3,7 +3,7 @@ import { Modal } from 'flowbite';
 document.addEventListener('DOMContentLoaded', function () {
     const targetEl = document.getElementById('popup-modal');
 
-    // Verifica se o elemento do modal existe
+    // Verifica se o modal existe
     if (targetEl) {
         const modal = new Modal(targetEl);
 
@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const openButtons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
         openButtons.forEach(button => {
             button.addEventListener('click', function () {
+                const userId = this.getAttribute('data-id');
+
+                // Atualiza o action do formulário com o ID correto
+                const deleteForm = document.getElementById('delete-user-form');
+                const formAction = deleteForm.getAttribute('action').replace(':id', userId);
+                deleteForm.setAttribute('action', formAction);
+
                 modal.show();
             });
         });
