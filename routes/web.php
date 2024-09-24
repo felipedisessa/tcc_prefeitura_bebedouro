@@ -12,13 +12,20 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Rotas de notícias
     Route::get('/noticias/gerenciar', [NoticiasController::class, 'index'])->name('noticias.index');
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
-    Route::patch('/users/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
-    Route::resource('/users' , ProfileController::class);
-    Route::resource('/noticias' , NoticiasController::class);
-    Route::delete('/users/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');
-    Route::post('/users/restore/{id}', [ProfileController::class, 'restore'])->name('users.restore');
+    Route::resource('/noticias', NoticiasController::class);
+
+    // Rotas para usuários em português
+    Route::get('/usuarios/gerenciar', [ProfileController::class, 'index'])->name('users.index');
+    Route::get('/usuarios/create', [ProfileController::class, 'create'])->name('users.create');
+    Route::post('/usuarios', [ProfileController::class, 'store'])->name('users.store');
+    Route::get('/usuarios/{user}/edit', [ProfileController::class, 'edit'])->name('users.edit');
+    Route::patch('/usuarios/{user}', [ProfileController::class, 'updateUser'])->name('users.updateUser');
+    Route::delete('/usuarios/{user}', [ProfileController::class, 'destroyUser'])->name('users.destroyUser');
+    Route::post('/usuarios/restore/{id}', [ProfileController::class, 'restore'])->name('users.restore');
 
 });
 
