@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
@@ -22,6 +23,7 @@ class ProfileController extends Controller
 
      public function edit($id): View
      {
+        Gate::authorize('admin', Auth::user());
          $user = User::findOrFail($id);
          return view('users.edit', compact('user'));
      }
@@ -30,15 +32,18 @@ class ProfileController extends Controller
 
      public function editProfile(Request $request): View
     {
+        Gate::authorize('admin', Auth::user());
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
     }
     public function updateUser(Request $request, User $user)
     {
+        Gate::authorize('admin', Auth::user());
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'role' => 'required',
             'document' => 'required|numeric|digits:11|unique:users,document,' . $user->id,
             'password' => 'nullable|min:8|confirmed',
         ]);
@@ -46,6 +51,7 @@ class ProfileController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->document = $request->document;
+        $user->role = $request->role;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -58,6 +64,8 @@ class ProfileController extends Controller
 
     public function index(Request $request): View
     {
+        Gate::authorize('admin', Auth::user());
+
         if ($request->has('trashed')) {
             $users = User::onlyTrashed()->get();
             $showTrashed = true;
@@ -74,6 +82,7 @@ class ProfileController extends Controller
 
     public function restore($id): RedirectResponse
     {
+         Gate::authorize('admin', Auth::user());
         // Restaura o usuário deletado
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
@@ -82,14 +91,17 @@ class ProfileController extends Controller
 
     public function create(): View
     {
+        Gate::authorize('admin', Auth::user());
         return view('users.create');
     }
 
     public function store(Request $request): RedirectResponse
     {
+        Gate::authorize('admin', Auth::user());
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users,email',
+            'role' => 'required',
             'password' => 'required|confirmed',
             'document' => 'required|numeric|digits:11|unique:users,document',
         ]);
@@ -99,6 +111,7 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->document = $request->document; // Salvando o documento
+        $user->role = $request->role;
         $user->save();
 
         return redirect()->route('users.index')->with('success', 'Usuário criado com sucesso!');
@@ -123,7 +136,8 @@ class ProfileController extends Controller
 
     public function destroyUser($id): RedirectResponse
     {
-        // Verifica se o usuário autenticado está tentando excluir a própria conta
+        Gate::authorize('admin', Auth::user());
+
         if (Auth::id() == $id) {
             return redirect()->route('users.index')->with('error', 'Você não pode excluir sua própria conta!');
         }

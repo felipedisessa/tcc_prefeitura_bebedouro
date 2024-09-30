@@ -28,6 +28,7 @@
                         {{ __('Notícias') }}
                     </x-nav-link>
                 </div>
+                @can('admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         <svg class="w-6 h-6 text-gray-800 dark:text-white m-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -36,6 +37,7 @@
                         {{ __('Usuários') }}
                     </x-nav-link>
                 </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
@@ -90,9 +92,11 @@
             <x-responsive-nav-link :href="route('noticias.index')" :active="request()->routeIs('noticias.index')">
                 {{ __('Notícias') }}
             </x-responsive-nav-link>
+            @can('admin')
             <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                 {{ __('Usuários') }}
             </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
