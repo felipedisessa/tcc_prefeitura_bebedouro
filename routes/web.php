@@ -13,12 +13,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/perfil', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Rotas de notícias
     Route::get('/noticias/gerenciar', [NoticiasController::class, 'index'])->name('noticias.index');
     Route::post('/noticias', [NoticiasController::class, 'store'])->name('noticias.store');
     Route::resource('/noticias', NoticiasController::class);
 
-    // Rotas para usuários em português
     Route::get('/usuarios/gerenciar', [ProfileController::class, 'index'])->name('users.index');
     Route::get('/usuarios/create', [ProfileController::class, 'create'])->name('users.create');
     Route::post('/usuarios', [ProfileController::class, 'store'])->name('users.store');
