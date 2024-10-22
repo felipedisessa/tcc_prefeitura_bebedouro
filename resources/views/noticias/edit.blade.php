@@ -22,7 +22,7 @@
 
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Descrição</label>
-                            <textarea name="description" id="description" rows="3" placeholder="Escreva o conteúdo da Notícia"
+                            <textarea name="description" id="description" rows="10" placeholder="Escreva o conteúdo da Notícia"
                                       class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">{{ old('description', $noticia->description) }}</textarea>
                             <div id="descriptionError" class="text-red-500 text-xs mt-1"></div>
                         </div>
