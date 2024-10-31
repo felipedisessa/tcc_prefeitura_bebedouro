@@ -30,7 +30,7 @@
 
                         <div class="mb-4">
                             <label for="role" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Permissão</label>
-                            <select name="role" id="role" class="text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                            <select name="role" id="role" class="text-black dark:text-white mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                                 <option value="administrador" {{ $user->role == 'administrador' ? 'selected' : '' }}>Administrador</option>
                                 <option value="publicador" {{ $user->role == 'publicador' ? 'selected' : '' }}>Publicador</option>
                             </select>
