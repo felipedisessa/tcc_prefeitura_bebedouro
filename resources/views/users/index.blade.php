@@ -10,29 +10,45 @@
         <div class="w-full mx-auto sm:px-6 lg:px-10">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex justify-between items-center mb-6">
+                    <div class="flex justify-between items-center mb-6 flex-wrap gap-4 sm:gap-0">
                         <h3 class="text-lg font-semibold">{{ $showTrashed ? __("Usuários Desativados") : __("Lista de Usuários") }}</h3>
-                        <div>
+                        <form action="{{ route('users.index') }}" method="GET" class="flex items-center max-w-lg mx-auto w-full">
+                            <div class="relative w-full">
+                                <input type="text" name="query" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+         focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+          dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Procurar por nome ou e-mail"/>
+                            </div>
+                            <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                            </button>
+                            <a class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                               href="{{ route('users.index') }}">
+                                Redefinir
+                            </a>
+                        </form>
+                        <div class="mt-4 sm:mt-0">
                             <a href="{{ route('users.create') }}"
-                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                               class="flex bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Criar Usuário
                             </a>
 
                             @if (!$showTrashed && $trashedCount > 0)
-                            <a href="{{ route('users.index', ['trashed' => true]) }}"
-                               class="max-sm:flex max-sm:mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
-                                Ver Usuários Desativados
-                            </a>
+                                <a href="{{ route('users.index', ['trashed' => true]) }}"
+                                   class="max-sm:flex max-sm:mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                    Ver Usuários Desativados
+                                </a>
                             @elseif ($showTrashed)
-                            <a href="{{ route('users.index') }}"
-                               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Voltar
-                            </a>
+                                <a href="{{ route('users.index') }}"
+                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    Voltar
+                                </a>
                             @endif
                         </div>
                     </div>
 
-                    @if (session('success'))
+                @if (session('success'))
                         <div class="bg-blue-500 text-white p-4 rounded">
                             {{ session('success') }}
                         </div>

@@ -66,15 +66,23 @@ class ProfileController extends Controller
     {
         Gate::authorize('admin', Auth::user());
 
-        if ($request->has('trashed')) {
-            $users = User::onlyTrashed()->get();
-            $showTrashed = true;
+        $query = $request->input('query');
+        $showTrashed = $request->has('trashed');
+
+        if ($showTrashed) {
+            $usersQuery = User::onlyTrashed();
         } else {
-            $users = User::whereNull('deleted_at')->get();
-            $showTrashed = false;
+            $usersQuery = User::whereNull('deleted_at');
         }
 
-        // Verifica se há usuários desativados
+        if ($query) {
+            $usersQuery->where(function($q) use ($query) {
+                $q->where('name', 'LIKE', '%' . $query . '%')
+                    ->orWhere('email', 'LIKE', '%' . $query . '%');
+            });
+        }
+
+        $users = $usersQuery->get();
         $trashedCount = User::onlyTrashed()->count();
 
         return view('users.index', compact('users', 'showTrashed', 'trashedCount'));

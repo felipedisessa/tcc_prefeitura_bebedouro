@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Storage;
 
 class NoticiasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $noticias = Noticias::all();
+        $query = $request->input('query');
+
+        $noticias = Noticias::when($query, function ($queryBuilder) use ($query) {
+            return $queryBuilder->where('name', 'LIKE', '%' . $query . '%')
+                ->orWhere('description', 'LIKE', '%' . $query . '%');
+        })->get();
+
         return view('noticias.index', compact('noticias'));
     }
 
