@@ -69,11 +69,7 @@ class ProfileController extends Controller
         $query = $request->input('query');
         $showTrashed = $request->has('trashed');
 
-        if ($showTrashed) {
-            $usersQuery = User::onlyTrashed();
-        } else {
-            $usersQuery = User::whereNull('deleted_at');
-        }
+        $usersQuery = $showTrashed ? User::onlyTrashed() : User::whereNull('deleted_at');
 
         if ($query) {
             $usersQuery->where(function($q) use ($query) {
