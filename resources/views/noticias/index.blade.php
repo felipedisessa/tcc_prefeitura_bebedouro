@@ -44,7 +44,11 @@
                             Criar Notícia
                         </a>
                     </div>
-
+                    @if ($noticias->isEmpty())
+                        <div class="flex justify-center items-center py-4">
+                            <span class="text-red-500">Nenhum registro encontrado</span>
+                        </div>
+                    @endif
                     @if (session('success'))
                         <div class="bg-blue-500 text-white p-4 rounded">
                             {{ session('success') }}
@@ -55,7 +59,6 @@
                             {{ session('error') }}
                         </div>
                     @endif
-
                     <!-- Tabela de notícias -->
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
