@@ -6,8 +6,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="w-full mx-auto sm:px-6 lg:px-10">
+    <div class="py-4">
+        <div class="w-full mx-auto sm:px-2 lg:px-4">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-6 flex-wrap gap-4 sm:gap-0">
@@ -31,21 +31,20 @@
                                 Redefinir
                             </a>
                         </form>
-
-                        <div class="mt-4 sm:mt-0">
+                        <div class="flex flex-col space-y-2 mt-4 sm:mt-0">
                             <a href="{{ route('users.create') }}"
-                               class="flex bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                               class="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-white dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Criar Usuário
                             </a>
 
                             @if (!$showTrashed && $trashedCount > 0)
                                 <a href="{{ route('users.index', ['trashed' => true]) }}"
-                                   class="max-sm:flex max-sm:mt-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+                                   class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
                                     Ver Usuários Desativados
                                 </a>
                             @elseif ($showTrashed)
                                 <a href="{{ route('users.index') }}"
-                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                     Voltar
                                 </a>
                             @endif
