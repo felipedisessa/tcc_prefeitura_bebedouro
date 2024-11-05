@@ -65,7 +65,6 @@ class ResetPasswordNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            // Aqui você pode adicionar outros dados que deseja armazenar, se necessário
         ];
     }
 }
