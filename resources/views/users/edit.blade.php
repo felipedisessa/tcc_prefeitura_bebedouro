@@ -9,6 +9,16 @@
         <div class="w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white dark:bg-gray-800">
+                    @if ($errors->any())
+                        <div class="mb-4 text-red-500 text-sm">
+                            <strong>Houve um problema ao editar o usuário:</strong>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('users.updateUser', $user->id) }}" method="POST">
                         @csrf
                         @method('PATCH')

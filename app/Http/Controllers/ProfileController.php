@@ -41,7 +41,7 @@ class ProfileController extends Controller
     {
         Gate::authorize('admin', Auth::user());
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'role' => 'required',
             'document' => 'required|numeric|digits:11|unique:users,document,' . $user->id,
