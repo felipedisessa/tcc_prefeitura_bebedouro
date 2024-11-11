@@ -108,6 +108,11 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Links de Paginação -->
+                    <div class="mt-4">
+                        {{ $noticias->links() }}
+                    </div>
                 </div>
             </div>
         </div>

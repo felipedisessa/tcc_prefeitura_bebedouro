@@ -15,8 +15,8 @@
                         <form action="{{ route('users.index') }}" method="GET" class="flex items-center max-w-lg mx-auto w-full">
                             <div class="relative w-full">
                                 <input type="text" name="query" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-            dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Procurar por nome ou e-mail" required/>
+                                    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Procurar por nome ou e-mail" required/>
                                 @if ($showTrashed)
                                     <input type="hidden" name="trashed" value="true">
                                 @endif
@@ -55,7 +55,7 @@
                             <span class="text-red-500">Nenhum registro encontrado</span>
                         </div>
                     @endif
-                @if (session('success'))
+                    @if (session('success'))
                         <div class="bg-blue-500 text-white p-4 rounded">
                             {{ session('success') }}
                         </div>
@@ -69,23 +69,23 @@
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ __('Nome') }}
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ __('Email') }}
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ $showTrashed ? __('Data de Desativação') : __('Data de Criação') }}
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        {{ __('Ação') }}
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    {{ __('Nome') }}
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    {{ __('Email') }}
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    {{ $showTrashed ? __('Data de Desativação') : __('Data de Criação') }}
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    {{ __('Ação') }}
+                                </th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $user)
+                            @foreach($users as $user)
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $user->name }}
@@ -117,15 +117,19 @@
                                                             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                                         Deletar
                                                     </button>
-
                                                 @endif
                                             @endif
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
+                    </div>
+
+                    <!-- Links de Paginação -->
+                    <div class="mt-4">
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

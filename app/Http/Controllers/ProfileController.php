@@ -78,7 +78,7 @@ class ProfileController extends Controller
             });
         }
 
-        $users = $usersQuery->get();
+        $users = $usersQuery->paginate(20);
         $trashedCount = User::onlyTrashed()->count();
 
         return view('users.index', compact('users', 'showTrashed', 'trashedCount'));

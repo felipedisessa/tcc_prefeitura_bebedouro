@@ -16,7 +16,7 @@ class NoticiasController extends Controller
         $noticias = Noticias::when($query, function ($queryBuilder) use ($query) {
             return $queryBuilder->where('name', 'LIKE', '%' . $query . '%')
                 ->orWhere('description', 'LIKE', '%' . $query . '%');
-        })->get();
+        })->paginate(20);
 
         return view('noticias.index', compact('noticias'));
     }
@@ -48,7 +48,7 @@ public function store(Request $request)
      $request->validate([
          'name' => 'required|string|max:255',
          'description' => 'required|string',
-         'noticia_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // ajuste a validação conforme necessário
+         'noticia_image' => 'nullable|image|max:2048',
      ]);
 
     $noticia = Noticias::create([
@@ -84,7 +84,7 @@ public function store(Request $request)
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'noticia_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Removendo o wildcard para múltiplos arquivos
+            'noticia_image' => 'nullable|image|max:2048',
         ]);
 
         $noticia = Noticias::findOrFail($id);
